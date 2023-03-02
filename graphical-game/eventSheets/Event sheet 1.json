@@ -1,5 +1,119 @@
 {
 	"name": "Event sheet 1",
-	"events": [],
+	"events": [
+		{
+			"eventType": "block",
+			"conditions": [
+				{
+					"id": "every-tick",
+					"objectClass": "System",
+					"sid": 718405711193279
+				}
+			],
+			"actions": [
+				{
+					"type": "script",
+					"script": "const G = 100000;\nconst MIN_DISTANCE = 20;\n\nfunction distance(a, b) {\n\treturn Math.sqrt((a.x - b.x) ** 2 + (a.y - b.y) ** 2);\n}\n\nfunction ecc(r, v) {\n\t// h = r × v\n\tconst h = [\n\t\t0,\n\t\t0,\n\t\tr[0] * v[1] - r[1] * v[0],\n\t];\n\tconst mu = G;\n\tconst vCrossH = [\n\t\tv[1] * h[2],\n\t\t- v[0] * h[2],\n\t];\n\tconst vCrossHOverMu = vCrossH.map(x => x / mu);\n\tconst rAbs = Math.sqrt(r.map(x => x * x).reduce((a, b) => a + b));\n\tconst rNorm = r.map(x => x / rAbs);\n\tconst eVec = vCrossHOverMu.map((x, i) => x - rNorm[i]);\n\tconst eAbs = Math.sqrt(eVec[0] ** 2 + eVec[1] ** 2);\n\treturn eAbs;\n}\n\nconst planets = runtime.objects['Planet'].getAllInstances();\nconst ship = runtime.objects['Ship'].getFirstInstance();\nconst closestPlanet = planets.sort((p1, p2) => distance(p1, ship) - distance(p2, ship))[0];\n\nfor (const planet of planets) {\n\tconst dist = distance(planet, ship);\n\t// apply gravity from planet to ship\n\tlet force = 0;\n\tif (dist > MIN_DISTANCE) {\n\t\tforce = G / (dist * dist);\n\t} else {\n\t\tconst peak = G / (MIN_DISTANCE ** 2);\n\t\tforce = (peak / MIN_DISTANCE) * dist;\n\t}\n\tship.behaviors.Physics.applyForceTowardPosition(force, planet.x, planet.y, -1);\n\n\t// calculate eccentricity\n\tconst e = ecc([ship.x - planet.x, ship.y - planet.y], ship.behaviors.Physics.getVelocity());\n\tconsole.log(e);\n}\n"
+				},
+				{
+					"id": "set-angle",
+					"objectClass": "Ship",
+					"sid": 358705661317524,
+					"parameters": {
+						"angle": "angle(0, 0, Ship.Physics.VelocityX, Ship.Physics.VelocityY)+90"
+					}
+				},
+				{
+					"id": "spawn-another-object",
+					"objectClass": "Ship",
+					"sid": 975338381836197,
+					"parameters": {
+						"object": "Dot",
+						"layer": "0",
+						"image-point": "0",
+						"create-hierarchy": false
+					}
+				}
+			],
+			"sid": 503247962209776
+		},
+		{
+			"eventType": "block",
+			"conditions": [
+				{
+					"id": "on-start-of-layout",
+					"objectClass": "System",
+					"sid": 996317725265852
+				}
+			],
+			"actions": [
+				{
+					"id": "set-world-gravity",
+					"objectClass": "Ship",
+					"sid": 223011129540506,
+					"behaviorType": "Physics",
+					"parameters": {
+						"gravity": "0"
+					}
+				},
+				{
+					"id": "set-velocity",
+					"objectClass": "Ship",
+					"sid": 181488684917931,
+					"behaviorType": "Physics",
+					"parameters": {
+						"x-component": "0",
+						"y-component": "150"
+					}
+				}
+			],
+			"sid": 975473476057710
+		},
+		{
+			"eventType": "block",
+			"conditions": [
+				{
+					"id": "compare-instance-variable",
+					"objectClass": "Dot",
+					"sid": 120304159366321,
+					"parameters": {
+						"instance-variable": "Age",
+						"comparison": 4,
+						"value": "180"
+					}
+				}
+			],
+			"actions": [
+				{
+					"id": "destroy",
+					"objectClass": "Dot",
+					"sid": 933909067402943
+				}
+			],
+			"sid": 269382496082135
+		},
+		{
+			"eventType": "block",
+			"conditions": [
+				{
+					"id": "every-tick",
+					"objectClass": "System",
+					"sid": 813301050138295
+				}
+			],
+			"actions": [
+				{
+					"id": "add-to-instvar",
+					"objectClass": "Dot",
+					"sid": 114275062553516,
+					"parameters": {
+						"instance-variable": "Age",
+						"value": "1"
+					}
+				}
+			],
+			"sid": 712990748759412
+		}
+	],
 	"sid": 914229451466728
 }

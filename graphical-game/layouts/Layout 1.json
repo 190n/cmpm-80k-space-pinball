@@ -5,7 +5,81 @@
 			"name": "Layer 0",
 			"overriden": 0,
 			"subLayers": [],
-			"instances": [],
+			"instances": [
+				{
+					"type": "Planet",
+					"properties": {
+						"initially-visible": true,
+						"initial-animation": "Animation 1",
+						"initial-frame": 0,
+						"enable-collisions": true,
+						"live-preview": false
+					},
+					"uid": 4,
+					"instanceVariables": {},
+					"behaviors": {},
+					"world": {
+						"x": 295.65318095999265,
+						"y": 270.257912290411,
+						"width": 75.67078361889361,
+						"height": 75.67078361889361,
+						"originX": 0.5,
+						"originY": 0.5,
+						"color": [
+							1,
+							1,
+							1,
+							1
+						],
+						"angle": 0,
+						"zElevation": 0
+					}
+				},
+				{
+					"type": "Ship",
+					"properties": {
+						"initially-visible": true,
+						"initial-animation": "Animation 1",
+						"initial-frame": 0,
+						"enable-collisions": true,
+						"live-preview": false
+					},
+					"uid": 6,
+					"instanceVariables": {},
+					"behaviors": {
+						"Physics": {
+							"properties": {
+								"immovable": false,
+								"collision-mask": "bounding-box",
+								"prevent-rotation": true,
+								"density": 4,
+								"friction": 0.5,
+								"elasticity": 0.2,
+								"linear-damping": 0,
+								"angular-damping": 0.01,
+								"bullet": false,
+								"enabled": true
+							}
+						}
+					},
+					"world": {
+						"x": 108.82678037236637,
+						"y": 262.4589431566529,
+						"width": 15.311413241215508,
+						"height": 20.591210910600164,
+						"originX": 0.5402298850574713,
+						"originY": 0.48717948717948717,
+						"color": [
+							1,
+							1,
+							1,
+							1
+						],
+						"angle": 0,
+						"zElevation": 0
+					}
+				}
+			],
 			"sid": 553292559824083,
 			"effectTypes": [],
 			"isInitiallyVisible": true,

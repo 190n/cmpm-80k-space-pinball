@@ -5,10 +5,29 @@
 	"runtime": "c3",
 	"useWorker": "auto",
 	"bundleAddons": false,
-	"usedAddons": [],
+	"usedAddons": [
+		{
+			"type": "plugin",
+			"id": "Sprite",
+			"name": "Sprite",
+			"author": "Scirra",
+			"bundled": false
+		},
+		{
+			"type": "behavior",
+			"id": "Physics",
+			"name": "Physics",
+			"author": "Scirra",
+			"bundled": false
+		}
+	],
 	"uniqueId": "i9px0bp546s",
 	"objectTypes": {
-		"items": [],
+		"items": [
+			"Planet",
+			"Ship",
+			"Dot"
+		],
 		"subfolders": []
 	},
 	"autosaveData": null,

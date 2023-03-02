@@ -1,0 +1,43 @@
+{
+	"name": "Ship",
+	"plugin-id": "Sprite",
+	"sid": 269186805605400,
+	"isGlobal": false,
+	"instanceVariables": [],
+	"behaviorTypes": [
+		{
+			"behaviorId": "Physics",
+			"name": "Physics",
+			"sid": 386666251664869
+		}
+	],
+	"effectTypes": [],
+	"animations": {
+		"items": [
+			{
+				"frames": [
+					{
+						"width": 87,
+						"height": 117,
+						"originX": 0.5402298850574713,
+						"originY": 0.48717948717948717,
+						"originalSource": "",
+						"exportFormat": "lossless",
+						"exportQuality": 0.8,
+						"imageSpriteId": 9537035,
+						"useCollisionPoly": true,
+						"duration": 1
+					}
+				],
+				"sid": 432311305483066,
+				"name": "Animation 1",
+				"isLooping": false,
+				"isPingPong": false,
+				"repeatCount": 1,
+				"repeatTo": 0,
+				"speed": 5
+			}
+		],
+		"subfolders": []
+	}
+}
