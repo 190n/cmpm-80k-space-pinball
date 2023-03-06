@@ -19,8 +19,8 @@
 					"instanceVariables": {},
 					"behaviors": {},
 					"world": {
-						"x": 295.65318095999265,
-						"y": 270.257912290411,
+						"x": 445.40268208534513,
+						"y": 529.5566110117935,
 						"width": 75.67078361889361,
 						"height": 75.67078361889361,
 						"originX": 0.5,
@@ -52,7 +52,7 @@
 								"immovable": false,
 								"collision-mask": "bounding-box",
 								"prevent-rotation": true,
-								"density": 4,
+								"density": 1,
 								"friction": 0.5,
 								"elasticity": 0.2,
 								"linear-damping": 0,
@@ -63,12 +63,41 @@
 						}
 					},
 					"world": {
-						"x": 108.82678037236637,
-						"y": 262.4589431566529,
+						"x": 69.06204638855026,
+						"y": 486.77034529017106,
 						"width": 15.311413241215508,
 						"height": 20.591210910600164,
 						"originX": 0.5402298850574713,
 						"originY": 0.48717948717948717,
+						"color": [
+							1,
+							1,
+							1,
+							1
+						],
+						"angle": 0,
+						"zElevation": 0
+					}
+				},
+				{
+					"type": "Planet",
+					"properties": {
+						"initially-visible": true,
+						"initial-animation": "Animation 1",
+						"initial-frame": 0,
+						"enable-collisions": true,
+						"live-preview": false
+					},
+					"uid": 3,
+					"instanceVariables": {},
+					"behaviors": {},
+					"world": {
+						"x": 188.1781240568506,
+						"y": 150.32072672416746,
+						"width": 75.67078361889361,
+						"height": 75.67078361889361,
+						"originX": 0.5,
+						"originY": 0.5,
 						"color": [
 							1,
 							1,
