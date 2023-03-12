@@ -3,14 +3,23 @@
 	"plugin-id": "Sprite",
 	"sid": 269186805605400,
 	"isGlobal": false,
-	"instanceVariables": [],
-	"behaviorTypes": [
+	"instanceVariables": [
 		{
-			"behaviorId": "Physics",
-			"name": "Physics",
-			"sid": 386666251664869
+			"name": "dx",
+			"type": "number",
+			"desc": "",
+			"show": true,
+			"sid": 769219195709598
+		},
+		{
+			"name": "dy",
+			"type": "number",
+			"desc": "",
+			"show": true,
+			"sid": 636745736062743
 		}
 	],
+	"behaviorTypes": [],
 	"effectTypes": [],
 	"animations": {
 		"items": [

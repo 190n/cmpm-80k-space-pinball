@@ -13,15 +13,7 @@
 			"actions": [
 				{
 					"type": "script",
-					"script": "const G = 100000;\nconst MIN_DISTANCE_FOR_GRAVITY = 20;\n\nfunction distance(a, b) {\n\treturn Math.sqrt((a.x - b.x) ** 2 + (a.y - b.y) ** 2);\n}\n\nconst planets = runtime.objects['Planet'].getAllInstances();\nconst ship = runtime.objects['Ship'].getFirstInstance();\n\nfor (const planet of planets) {\n\tconst dist = distance(planet, ship);\n\t// apply gravity from planet to ship\n\tlet force = 0;\n\t//if (dist > MIN_DISTANCE_FOR_GRAVITY) {\n\t\tforce = G / (dist * dist);\n\t//} else {\n\t//\tconst peak = G / (MIN_DISTANCE_FOR_GRAVITY ** 2);\n\t//\tforce = (peak / MIN_DISTANCE_FOR_GRAVITY) * dist;\n\t//}\n\tship.behaviors.Physics.applyForceTowardPosition(force, planet.x, planet.y);\n}"
-				},
-				{
-					"id": "set-angle",
-					"objectClass": "Ship",
-					"sid": 358705661317524,
-					"parameters": {
-						"angle": "angle(0, 0, Ship.Physics.VelocityX, Ship.Physics.VelocityY)+90"
-					}
+					"script": "const G = 3000000;\nconst MIN_DISTANCE_FOR_GRAVITY = 20;\n\nfunction distance(a, b) {\n\treturn Math.sqrt((a.x - b.x) ** 2 + (a.y - b.y) ** 2);\n}\n\nconst planets = runtime.objects['Planet'].getAllInstances();\nconst ship = runtime.objects['Ship'].getFirstInstance();\n\nfor (const planet of planets) {\n\tconst dist = distance(planet, ship);\n\t// apply gravity from planet to ship\n\tlet force = 0;\n\tif (dist > MIN_DISTANCE_FOR_GRAVITY) {\n\t\tforce = G / (dist * dist);\n\t} else {\n\t\tconst peak = G / (MIN_DISTANCE_FOR_GRAVITY ** 2);\n\t\tforce = (peak / MIN_DISTANCE_FOR_GRAVITY) * dist;\n\t}\n\n\tconst accelX = force * (planet.x - ship.x) / dist;\n\tconst accelY = force * (planet.y - ship.y) / dist;\n\n\t// move\n\tship.x += ship.instVars.dx * runtime.dt;\n\tship.x += 1/2 * accelX * runtime.dt * runtime.dt;\n\tship.y += ship.instVars.dy * runtime.dt;\n\tship.y += 1/2 * accelY * runtime.dt * runtime.dt;\n\t// accelerate\n\tship.instVars.dx += accelX * runtime.dt;\n\tship.instVars.dy += accelY * runtime.dt;\n}"
 				},
 				{
 					"id": "spawn-another-object",
@@ -46,37 +38,7 @@
 					"sid": 996317725265852
 				}
 			],
-			"actions": [
-				{
-					"id": "set-world-gravity",
-					"objectClass": "Ship",
-					"sid": 223011129540506,
-					"behaviorType": "Physics",
-					"parameters": {
-						"gravity": "0"
-					}
-				},
-				{
-					"id": "set-velocity",
-					"objectClass": "Ship",
-					"sid": 581383870457197,
-					"behaviorType": "Physics",
-					"parameters": {
-						"x-component": "100",
-						"y-component": "-100"
-					}
-				},
-				{
-					"id": "set-stepping-iterations",
-					"objectClass": "Ship",
-					"sid": 132773688272553,
-					"behaviorType": "Physics",
-					"parameters": {
-						"velocity-iterations": "80",
-						"position-iterations": "30"
-					}
-				}
-			],
+			"actions": [],
 			"sid": 975473476057710
 		},
 		{
@@ -139,7 +101,7 @@
 			"actions": [
 				{
 					"type": "script",
-					"script": "const G = 100000;\nconst MAX_DISTANCE_FOR_ORBIT = 150;\n\nfunction distance(a, b) {\n\treturn Math.sqrt((a.x - b.x) ** 2 + (a.y - b.y) ** 2);\n}\n\nconst planets = runtime.objects['Planet'].getAllInstances();\nconst ship = runtime.objects['Ship'].getFirstInstance();\nconst closestPlanet = planets.sort((p1, p2) => distance(p1, ship) - distance(p2, ship))[0];\nconst closestDistance = distance(closestPlanet, ship);\n\nif (closestDistance < MAX_DISTANCE_FOR_ORBIT) {\n\t// compute vector from ship to planet\n\tconst shipToPlanet = [closestPlanet.x - ship.x, closestPlanet.y - ship.y];\n\tconsole.log(shipToPlanet);\n\t// normalize it\n\tshipToPlanet[0] /= closestDistance;\n\tshipToPlanet[1] /= closestDistance;\n\tconsole.log(shipToPlanet);\n\t// rotate 90 degrees CW\n\tconst orbitDirection = [shipToPlanet[1], -shipToPlanet[0]];\n\tconsole.log(ship.behaviors.Physics);\n\tconst orbitVelocity = Math.sqrt(G * (1 + ship.behaviors.Physics.mass) / closestDistance);\n\tconsole.log(orbitVelocity);\n\tship.behaviors.Physics.setVelocity(orbitDirection[0] * orbitVelocity, orbitDirection[1] * orbitVelocity);\n}"
+					"script": "/*const G = 3000000;\nconst MAX_DISTANCE_FOR_ORBIT = 150;\n\nfunction distance(a, b) {\n\treturn Math.sqrt((a.x - b.x) ** 2 + (a.y - b.y) ** 2);\n}\n\nconst planets = runtime.objects['Planet'].getAllInstances();\nconst ship = runtime.objects['Ship'].getFirstInstance();\nconst closestPlanet = planets.sort((p1, p2) => distance(p1, ship) - distance(p2, ship))[0];\nconst closestDistance = distance(closestPlanet, ship);\n\nif (closestDistance < MAX_DISTANCE_FOR_ORBIT) {\n\t// compute vector from ship to planet\n\tconst shipToPlanet = [closestPlanet.x - ship.x, closestPlanet.y - ship.y];\n\tconsole.log(shipToPlanet);\n\t// normalize it\n\tshipToPlanet[0] /= closestDistance;\n\tshipToPlanet[1] /= closestDistance;\n\tconsole.log(shipToPlanet);\n\t// rotate 90 degrees CW\n\tconst orbitDirection = [shipToPlanet[1], -shipToPlanet[0]];\n\tconst orbitVelocity = Math.sqrt(G * 2 / closestDistance);\n\tconsole.log(orbitVelocity);\n\tship.instVars.dx = orbitDirection[0] * orbitVelocity;\n\tship.instVars.dy = orbitDirection[1] * orbitVelocity;\n}*/"
 				}
 			],
 			"sid": 156261243726830
@@ -163,6 +125,41 @@
 				}
 			],
 			"sid": 510680097101608
+		},
+		{
+			"eventType": "block",
+			"conditions": [
+				{
+					"id": "on-click",
+					"objectClass": "Mouse",
+					"sid": 616347963531998,
+					"parameters": {
+						"mouse-button": "left",
+						"click-type": "clicked"
+					}
+				}
+			],
+			"actions": [
+				{
+					"id": "set-instvar-value",
+					"objectClass": "Ship",
+					"sid": 137693807888168,
+					"parameters": {
+						"instance-variable": "dx",
+						"value": "Mouse.X - Ship.X"
+					}
+				},
+				{
+					"id": "set-instvar-value",
+					"objectClass": "Ship",
+					"sid": 627365062464814,
+					"parameters": {
+						"instance-variable": "dy",
+						"value": "Mouse.Y - Ship.Y"
+					}
+				}
+			],
+			"sid": 888927258255184
 		}
 	],
 	"sid": 914229451466728

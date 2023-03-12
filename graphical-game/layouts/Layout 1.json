@@ -19,8 +19,8 @@
 					"instanceVariables": {},
 					"behaviors": {},
 					"world": {
-						"x": 445.40268208534513,
-						"y": 529.5566110117935,
+						"x": 329.879959293798,
+						"y": 419.4612230333031,
 						"width": 75.67078361889361,
 						"height": 75.67078361889361,
 						"originX": 0.5,
@@ -45,23 +45,11 @@
 						"live-preview": false
 					},
 					"uid": 6,
-					"instanceVariables": {},
-					"behaviors": {
-						"Physics": {
-							"properties": {
-								"immovable": false,
-								"collision-mask": "bounding-box",
-								"prevent-rotation": true,
-								"density": 1,
-								"friction": 0.5,
-								"elasticity": 0.2,
-								"linear-damping": 0,
-								"angular-damping": 0.01,
-								"bullet": false,
-								"enabled": true
-							}
-						}
+					"instanceVariables": {
+						"dx": 0,
+						"dy": 0
 					},
+					"behaviors": {},
 					"world": {
 						"x": 69.06204638855026,
 						"y": 486.77034529017106,

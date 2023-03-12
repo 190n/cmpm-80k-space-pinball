@@ -1,6 +1,6 @@
 {
 	"projectFormatVersion": 1,
-	"savedWithRelease": 32702,
+	"savedWithRelease": 32703,
 	"name": "graphical game",
 	"runtime": "c3",
 	"useWorker": "auto",
@@ -15,15 +15,15 @@
 		},
 		{
 			"type": "plugin",
-			"id": "Sprite",
-			"name": "Sprite",
+			"id": "Mouse",
+			"name": "Mouse",
 			"author": "Scirra",
 			"bundled": false
 		},
 		{
-			"type": "behavior",
-			"id": "Physics",
-			"name": "Physics",
+			"type": "plugin",
+			"id": "Sprite",
+			"name": "Sprite",
 			"author": "Scirra",
 			"bundled": false
 		}
@@ -34,7 +34,8 @@
 			"Planet",
 			"Ship",
 			"Dot",
-			"Keyboard"
+			"Keyboard",
+			"Mouse"
 		],
 		"subfolders": []
 	},
