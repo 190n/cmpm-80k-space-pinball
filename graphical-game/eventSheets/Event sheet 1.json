@@ -138,10 +138,10 @@
 				{
 					"id": "play-by-name",
 					"objectClass": "Audio",
-					"sid": 919836821938232,
+					"sid": 615847836674809,
 					"parameters": {
 						"folder": "sounds",
-						"audio-file-name": "\"explosion\"",
+						"audio-file-name": "\"engine\"",
 						"loop": "not-looping",
 						"volume": "0",
 						"stereo-pan": "0",
@@ -205,6 +205,27 @@
 				}
 			],
 			"sid": 888927258255184
+		},
+		{
+			"eventType": "block",
+			"conditions": [
+				{
+					"id": "on-collision-with-another-object",
+					"objectClass": "Ship",
+					"sid": 336811446949015,
+					"parameters": {
+						"object": "Planet"
+					}
+				}
+			],
+			"actions": [
+				{
+					"id": "destroy",
+					"objectClass": "Ship",
+					"sid": 306319987303274
+				}
+			],
+			"sid": 190664587842154
 		}
 	],
 	"sid": 914229451466728

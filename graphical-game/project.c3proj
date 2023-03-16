@@ -73,9 +73,25 @@
 		"sound": {
 			"items": [
 				{
-					"name": "explosion.webm",
+					"name": "engine.webm",
 					"type": "audio/webm; codecs=opus",
 					"sid": 636359942560573,
+					"file-info": {
+						"purpose": "none"
+					}
+				},
+				{
+					"name": "explosion.webm",
+					"type": "audio/webm; codecs=opus",
+					"sid": 810118457589295,
+					"file-info": {
+						"purpose": "none"
+					}
+				},
+				{
+					"name": "click.webm",
+					"type": "audio/webm; codecs=opus",
+					"sid": 369983146011676,
 					"file-info": {
 						"purpose": "none"
 					}
