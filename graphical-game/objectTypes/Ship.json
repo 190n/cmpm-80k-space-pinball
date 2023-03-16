@@ -17,6 +17,20 @@
 			"desc": "",
 			"show": true,
 			"sid": 636745736062743
+		},
+		{
+			"name": "orbiting",
+			"type": "boolean",
+			"desc": "",
+			"show": true,
+			"sid": 804146749240647
+		},
+		{
+			"name": "orbitedPlanet",
+			"type": "number",
+			"desc": "",
+			"show": true,
+			"sid": 322466113365365
 		}
 	],
 	"behaviorTypes": [],

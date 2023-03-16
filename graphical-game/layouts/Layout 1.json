@@ -7,35 +7,6 @@
 			"subLayers": [],
 			"instances": [
 				{
-					"type": "Planet",
-					"properties": {
-						"initially-visible": true,
-						"initial-animation": "Animation 1",
-						"initial-frame": 0,
-						"enable-collisions": true,
-						"live-preview": false
-					},
-					"uid": 4,
-					"instanceVariables": {},
-					"behaviors": {},
-					"world": {
-						"x": 329.879959293798,
-						"y": 419.4612230333031,
-						"width": 32,
-						"height": 32,
-						"originX": 0.5,
-						"originY": 0.5,
-						"color": [
-							1,
-							1,
-							1,
-							1
-						],
-						"angle": 0,
-						"zElevation": 0
-					}
-				},
-				{
 					"type": "Ship",
 					"properties": {
 						"initially-visible": true,
@@ -46,13 +17,15 @@
 					},
 					"uid": 6,
 					"instanceVariables": {
-						"dx": 0,
-						"dy": 0
+						"dx": 115,
+						"dy": 115,
+						"orbiting": false,
+						"orbitedPlanet": 0
 					},
 					"behaviors": {},
 					"world": {
-						"x": 138,
-						"y": 504,
+						"x": 310.0361428704332,
+						"y": 265.06936288277683,
 						"width": 32,
 						"height": 64,
 						"originX": 0.5,
@@ -76,12 +49,12 @@
 						"enable-collisions": true,
 						"live-preview": false
 					},
-					"uid": 3,
+					"uid": 13,
 					"instanceVariables": {},
 					"behaviors": {},
 					"world": {
-						"x": 188.1781240568506,
-						"y": 150.32072672416746,
+						"x": 342.9159335485985,
+						"y": 247.0275365300664,
 						"width": 32,
 						"height": 32,
 						"originX": 0.5,
