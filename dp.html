@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<title>dot product tester</title>
+	</head>
+	<body>
+		<canvas width="400" height="400" id="canvas"></canvas>
+		<p id="direction"></p>
+		<script>
+			const points = [{ x: 0, y: 0 }, { x: 0, y: 0 }];
+			let i = 0;
+
+			const canvas = document.getElementById('canvas');
+			const ctx = canvas.getContext('2d');
+			const direction = document.getElementById('direction');
+			ctx.beginPath();
+			ctx.arc(200, 200, 20, 0, 2 * Math.PI);
+			ctx.fill();
+			ctx.closePath();
+
+			canvas.onclick = e => {
+				points[i] = {
+					x: e.clientX - canvas.getBoundingClientRect().left,
+					y: e.clientY - canvas.getBoundingClientRect().top,
+				};
+
+				ctx.clearRect(0, 0, 400, 400);
+				ctx.beginPath();
+				ctx.arc(200, 200, 20, 0, 2 * Math.PI);
+				ctx.fill();
+				ctx.closePath();
+
+				ctx.beginPath();
+				ctx.moveTo(points[0].x, points[0].y);
+				ctx.lineTo(points[1].x, points[1].y);
+
+				const dir = Math.atan2(points[0].y - points[1].y, points[0].x - points[1].x);
+				ctx.lineTo(points[1].x + 5 * Math.cos(dir + Math.PI / 4), points[1].y + 5 * Math.sin(dir + Math.PI / 4));
+				ctx.moveTo(points[1].x, points[1].y);
+				ctx.lineTo(points[1].x + 5 * Math.cos(dir - Math.PI / 4), points[1].y + 5 * Math.sin(dir - Math.PI / 4));
+
+				ctx.stroke();
+				ctx.closePath();
+
+				i = (i + 1) % 2;
+
+				// p1 = planet
+				// p2 = current pos
+				// p3 = next pos
+				const cross = (points[0].x - 200) * (points[1].y - 200) - (points[0].y - 200) * (points[1].x - 200);
+
+				direction.textContent = cross < 0 ? 'counterclockwise' : 'clockwise';
+			};
+		</script>
+	</body>
+</html>
