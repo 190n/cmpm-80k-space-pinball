@@ -21,16 +21,16 @@
 		{
 			"name": "orbiting",
 			"type": "boolean",
-			"desc": "",
+			"desc": "whether the ship is orbiting a planet",
 			"show": true,
-			"sid": 804146749240647
+			"sid": 519401300910420
 		},
 		{
-			"name": "orbitedPlanet",
+			"name": "dv",
 			"type": "number",
-			"desc": "",
+			"desc": "delta-v that was applied to enter the current orbit",
 			"show": true,
-			"sid": 322466113365365
+			"sid": 922480594369612
 		}
 	],
 	"behaviorTypes": [],

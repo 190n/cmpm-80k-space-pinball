@@ -17,15 +17,15 @@
 					},
 					"uid": 6,
 					"instanceVariables": {
-						"dx": 115,
-						"dy": 115,
+						"dx": -20,
+						"dy": -300,
 						"orbiting": false,
-						"orbitedPlanet": 0
+						"dv": 0
 					},
 					"behaviors": {},
 					"world": {
-						"x": 310.0361428704332,
-						"y": 265.06936288277683,
+						"x": 292,
+						"y": 434,
 						"width": 32,
 						"height": 64,
 						"originX": 0.5,

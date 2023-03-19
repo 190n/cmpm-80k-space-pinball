@@ -43,7 +43,7 @@
 			"actions": [
 				{
 					"type": "script",
-					"script": "\nfunction distance(a, b) {\n\treturn Math.sqrt((a.x - b.x) ** 2 + (a.y - b.y) ** 2);\n}\n\nconst planets = runtime.objects['Planet'].getAllInstances();\nconst ship = runtime.objects['Ship'].getFirstInstance();\n\nlet accelX = 0;\nlet accelY = 0;\n\nif (ship.instVars.orbiting) {\n} else {\nfor (const planet of planets) {\n\tconst dist = distance(planet, ship);\n\t// apply gravity from planet to ship\n\tlet force = 0;\n\tif (dist > runtime.globalVars.minGravityDistance) {\n\t\tforce = runtime.globalVars.G / (dist * dist);\n\t} else {\n\t\tconst peak = runtime.globalVars.G / (runtime.globalVars.minGravityDistance ** 2);\n\t\tforce = (peak / runtime.globalVars.minGravityDistance) * dist;\n\t}\n\n\taccelX += force * (planet.x - ship.x) / dist;\n\taccelY += force * (planet.y - ship.y) / dist;\n}\n\n// accelerate\nship.instVars.dx += accelX * runtime.dt;\nship.instVars.dy += accelY * runtime.dt;\n\n// move\nship.x += ship.instVars.dx * runtime.dt;\nship.y += ship.instVars.dy * runtime.dt;\n\n// wrap\n//ship.x %= runtime.layout.width;\n//ship.x += runtime.layout.width;\n//ship.x %= runtime.layout.width;\n}"
+					"script": "\nfunction distance(a, b) {\n\treturn Math.sqrt((a.x - b.x) ** 2 + (a.y - b.y) ** 2);\n}\n\nconst planets = runtime.objects['Planet'].getAllInstances();\nconst ship = runtime.objects['Ship'].getFirstInstance();\n\nlet accelX = 0;\nlet accelY = 0;\n\n//if (ship.instVars.orbiting) {\n//} else {\nfor (const planet of planets) {\n\tconst dist = distance(planet, ship);\n\t// apply gravity from planet to ship\n\tlet force = 0;\n\tif (dist > runtime.globalVars.minGravityDistance) {\n\t\tforce = runtime.globalVars.G / (dist * dist);\n\t} else {\n\t\tconst peak = runtime.globalVars.G / (runtime.globalVars.minGravityDistance ** 2);\n\t\tforce = (peak / runtime.globalVars.minGravityDistance) * dist;\n\t}\n\n\taccelX += force * (planet.x - ship.x) / dist;\n\taccelY += force * (planet.y - ship.y) / dist;\n}\n\n// accelerate\nship.instVars.dx += accelX * runtime.dt;\nship.instVars.dy += accelY * runtime.dt;\n\n// move\nship.x += ship.instVars.dx * runtime.dt;\nship.y += ship.instVars.dy * runtime.dt;\n\n// wrap\n//ship.x %= runtime.layout.width;\n//ship.x += runtime.layout.width;\n//ship.x %= runtime.layout.width;\n//}"
 				},
 				{
 					"id": "create-object",
@@ -133,7 +133,7 @@
 			"actions": [
 				{
 					"type": "script",
-					"script": "function distance(a, b) {\n\treturn Math.sqrt((a.x - b.x) ** 2 + (a.y - b.y) ** 2);\n}\n\nconst planets = runtime.objects['Planet'].getAllInstances();\nconst ship = runtime.objects['Ship'].getFirstInstance();\nlet closestPlanet = planets[0], closestDistance = distance(closestPlanet, ship);\nfor (let i = 1; i < planets.length; i += 1) {\n\tconst thisPlanetDistance = distance(planets[i], ship);\n\tif (thisPlanetDistance < closestDistance) {\n\t\tclosestPlanet = planets[i];\n\t\tclosestDistance = thisPlanetDistance;\n\t}\n}\n\nif (closestDistance < runtime.globalVars.maxOrbitDistance) {\n\n\tship.instVars.orbiting = true;\n\tship.instVars.orbitedPlanet = closestPlanet.uid;\n\n\t// // compute vector from ship to planet\n\t// const shipToPlanet = [closestPlanet.x - ship.x, closestPlanet.y - ship.y];\n\t// console.log(shipToPlanet);\n\t// // normalize it\n\t// shipToPlanet[0] /= closestDistance;\n\t// shipToPlanet[1] /= closestDistance;\n\t// console.log(shipToPlanet);\n\t// // rotate 90 degrees CW\n\t// const orbitDirection = [shipToPlanet[1], -shipToPlanet[0]];\n\tconst orbitVelocity = Math.sqrt(runtime.globalVars.G * 1 / closestDistance);\n\tconsole.log(orbitVelocity);\n\t// ship.instVars.dx = orbitDirection[0] * orbitVelocity;\n\t// ship.instVars.dy = orbitDirection[1] * orbitVelocity;\n}"
+					"script": "function distance(a, b) {\n\treturn Math.sqrt((a.x - b.x) ** 2 + (a.y - b.y) ** 2);\n}\n\nconst planets = runtime.objects['Planet'].getAllInstances();\nconst ship = runtime.objects['Ship'].getFirstInstance();\n\nif (ship.instVars.orbiting) {\n\tship.instVars.orbiting = false;\n\tship.instVars.dx \n}\nlet closestPlanet = planets[0], closestDistance = distance(closestPlanet, ship);\nfor (let i = 1; i < planets.length; i += 1) {\n\tconst thisPlanetDistance = distance(planets[i], ship);\n\tif (thisPlanetDistance < closestDistance) {\n\t\tclosestPlanet = planets[i];\n\t\tclosestDistance = thisPlanetDistance;\n\t}\n}\n\nif (closestDistance < runtime.globalVars.maxOrbitDistance) {\n\n\tship.instVars.orbiting = true;\n\tship.instVars.orbitedPlanet = closestPlanet.uid;\n\n\t// compute vector from ship to planet\n\tconst shipToPlanet = [closestPlanet.x - ship.x, closestPlanet.y - ship.y];\n\tconsole.log(shipToPlanet);\n\t// normalize it\n\tshipToPlanet[0] /= closestDistance;\n\tshipToPlanet[1] /= closestDistance;\n\tconsole.log(shipToPlanet);\n\t\n\t// figure out if we should orbit CW or CCW\n\t// P = (x2 - x1)(y3 - y1) - (y2 - y1)(x3 - x1)\n\t// 1 = planet\n\t// 2 = current ship\n\t// 3 = next ship\n\tconst cross = (ship.x - closestPlanet.x) * (ship.y + ship.instVars.dy - closestPlanet.y)\n\t\t- (ship.y - closestPlanet.y) * (ship.x + ship.instVars.dx - closestPlanet.x);\n\tconst counterclockwise = cross < 0;\n\t\n\t// rotate 90 degrees CW\n\tconst orbitDirection = (counterclockwise\n\t\t? [-shipToPlanet[1], shipToPlanet[0]]\n\t\t: [shipToPlanet[1], -shipToPlanet[0]]);\n\tconst orbitVelocity = Math.sqrt(runtime.globalVars.G * 1 / closestDistance);\n\tconsole.log(orbitVelocity);\n\tconst orbitVec = [orbitDirection[0] * orbitVelocity, orbitDirection[1] * orbitVelocity];\n\tconst dv_x = orbitVec[0] - ship.instVars.dx;\n\tconst dv_y = orbitVec[1] - ship.instVars.dy;\n\tship.instVars.dv = Math.sqrt(dv_x ** 2 + dv_y ** 2);\n\tship.instVars.dx = orbitVec[0];\n\tship.instVars.dy = orbitVec[1];\n}"
 				},
 				{
 					"id": "play-by-name",
@@ -166,7 +166,7 @@
 			"actions": [
 				{
 					"type": "script",
-					"script": ""
+					"script": "const ship = runtime.objects['Ship'].getFirstInstance();\nif (ship.instVars.orbiting) {\n\tship.instVars.orbiting = false;\n\tconst currentVel = Math.sqrt(ship.instVars.dx ** 2 + ship.instVars.dy ** 2);\n\tconst factor = (currentVel + ship.instVars.dv) / currentVel;\n\tship.instVars.dx *= factor;\n\tship.instVars.dy *= factor;\n}"
 				}
 			],
 			"sid": 510680097101608
@@ -205,27 +205,6 @@
 				}
 			],
 			"sid": 888927258255184
-		},
-		{
-			"eventType": "block",
-			"conditions": [
-				{
-					"id": "on-collision-with-another-object",
-					"objectClass": "Ship",
-					"sid": 336811446949015,
-					"parameters": {
-						"object": "Planet"
-					}
-				}
-			],
-			"actions": [
-				{
-					"id": "destroy",
-					"objectClass": "Ship",
-					"sid": 306319987303274
-				}
-			],
-			"sid": 190664587842154
 		}
 	],
 	"sid": 914229451466728
