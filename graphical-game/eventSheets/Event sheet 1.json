@@ -42,6 +42,46 @@
 			"sid": 895585357274453
 		},
 		{
+			"eventType": "variable",
+			"name": "heatScale",
+			"type": "number",
+			"initialValue": "32",
+			"comment": "",
+			"isStatic": false,
+			"isConstant": true,
+			"sid": 902902175981024
+		},
+		{
+			"eventType": "variable",
+			"name": "chillScale",
+			"type": "number",
+			"initialValue": "1.2",
+			"comment": "",
+			"isStatic": false,
+			"isConstant": true,
+			"sid": 444155869486192
+		},
+		{
+			"eventType": "variable",
+			"name": "enginePower",
+			"type": "number",
+			"initialValue": "150",
+			"comment": "",
+			"isStatic": false,
+			"isConstant": true,
+			"sid": 548281517917622
+		},
+		{
+			"eventType": "variable",
+			"name": "score",
+			"type": "number",
+			"initialValue": "0",
+			"comment": "",
+			"isStatic": false,
+			"isConstant": false,
+			"sid": 361925266565031
+		},
+		{
 			"eventType": "block",
 			"conditions": [
 				{
@@ -53,7 +93,7 @@
 			"actions": [
 				{
 					"type": "script",
-					"script": "\nfunction distance(a, b) {\n\treturn Math.sqrt((a.x - b.x) ** 2 + (a.y - b.y) ** 2);\n}\n\nconst planets = runtime.objects['Planet'].getAllInstances();\nconst ship = runtime.objects['Ship'].getFirstInstance();\n\nif (ship === null) {\n\treturn;\n}\n\nlet accelX = 0;\nlet accelY = 0;\n\nlet topY = Infinity;\n\nfor (const planet of planets) {\n\tconst dist = distance(planet, ship);\n\t// apply gravity from planet to ship\n\tlet force = 0;\n\tif (dist > runtime.globalVars.minGravityDistance) {\n\t\tforce = runtime.globalVars.G / (dist * dist);\n\t} else {\n\t\tconst peak = runtime.globalVars.G / (runtime.globalVars.minGravityDistance ** 2);\n\t\tforce = (peak / runtime.globalVars.minGravityDistance) * dist;\n\t}\n\n\taccelX += force * (planet.x - ship.x) / dist;\n\taccelY += force * (planet.y - ship.y) / dist;\n\t\n\tif (planet.y < topY) {\n\t\ttopY = planet.y;\n\t}\n}\n\n// accelerate\nship.instVars.dx += accelX * runtime.dt;\nship.instVars.dy += accelY * runtime.dt;\n\n// move\nship.x += ship.instVars.dx * runtime.dt;\nif (ship.instVars.dy > 0) {\n\t// move ship down\n    ship.y += ship.instVars.dy * runtime.dt;\n} else if (ship.y > runtime.globalVars.highestShipPos) {\n\t// move ship up\n\tconst movement = ship.instVars.dy * runtime.dt;\n\tif (ship.y + movement < runtime.globalVars.highestShipPos) {\n\t\t// move ship to boundary and move planets to match\n\t\tconst movementForPlanets = -(movement - (runtime.globalVars.highestShipPos - ship.y));\n\t\tfor (const p of planets) {\n\t\t\tp.y += movementForPlanets;\n\t\t}\n\t\tship.y = runtime.globalVars.highestShipPos;\n\t} else {\n\t\tship.y += movement;\n\t}\n} else {\n\t// move planets down\n\tfor (const p of planets) {\n\t\tp.y -= ship.instVars.dy * runtime.dt;\n\t}\n}\n\n// wrap\nship.x %= runtime.layout.width;\nship.x += runtime.layout.width;\nship.x %= runtime.layout.width;\n\n// spawn new planet\nif (topY > 100) {\n\tconst newPlanet = runtime.objects['Planet'].createInstance(0, Math.random() * runtime.layout.width, 0);\n\tconst anims = ['Blue Planet', 'Red Planet', 'Purple Planet', 'Grey Planet'];\n\tnewPlanet.setAnimation(anims[Math.floor(Math.random() * anims.length)]);\n}"
+					"script": "\nfunction distance(a, b) {\n\treturn Math.sqrt((a.x - b.x) ** 2 + (a.y - b.y) ** 2);\n}\n\nconst planets = runtime.objects['Planet'].getAllInstances();\nconst ship = runtime.objects['Ship'].getFirstInstance();\n\nif (ship === null) {\n\treturn;\n}\n\nlet xToMouse = runtime.mouse.getMouseX() - ship.x;\nlet yToMouse = runtime.mouse.getMouseY() - ship.y;\nconst mouseDist = Math.sqrt(xToMouse ** 2 + yToMouse ** 2);\nxToMouse /= mouseDist;\nyToMouse /= mouseDist;\n\nlet accelX = xToMouse * runtime.globalVars.enginePower;\nlet accelY = yToMouse * runtime.globalVars.enginePower;\n\nconsole.log(`HEAT IS ${runtime.globalVars.heatScale}`);\n\nlet topY = Infinity;\n\nfor (const planet of planets) {\n\tconst dist = distance(planet, ship);\n\t// apply gravity from planet to ship\n\tlet force = 0;\n\tif (dist > runtime.globalVars.minGravityDistance) {\n\t\tforce = runtime.globalVars.G / (dist * dist);\n\t} else {\n\t\tconst peak = runtime.globalVars.G / (runtime.globalVars.minGravityDistance ** 2);\n\t\tforce = (peak / runtime.globalVars.minGravityDistance) * dist;\n\t}\n\n\taccelX += force * (planet.x - ship.x) / dist;\n\taccelY += force * (planet.y - ship.y) / dist;\n\t\n\tif (planet.y < topY) {\n\t\ttopY = planet.y;\n\t}\n\t\n\tship.instVars.temperature += runtime.globalVars.heatScale * runtime.dt / dist;\n}\n\nship.instVars.temperature -= runtime.globalVars.chillScale * runtime.dt;\n\n// accelerate\nship.instVars.dx += accelX * runtime.dt;\nship.instVars.dy += accelY * runtime.dt;\n\n// move\nship.x += ship.instVars.dx * runtime.dt;\nif (ship.instVars.dy > 0) {\n\t// move ship down\n    ship.y += ship.instVars.dy * runtime.dt;\n} else if (ship.y > runtime.globalVars.highestShipPos) {\n\t// move ship up\n\tconst movement = ship.instVars.dy * runtime.dt;\n\tif (ship.y + movement < runtime.globalVars.highestShipPos) {\n\t\t// move ship to boundary and move planets to match\n\t\tconst movementForPlanets = -(movement - (runtime.globalVars.highestShipPos - ship.y));\n\t\tfor (const p of planets) {\n\t\t\tp.y += movementForPlanets;\n\t\t}\n\t\tship.y = runtime.globalVars.highestShipPos;\n\t} else {\n\t\tship.y += movement;\n\t}\n} else {\n\t// move planets down\n\tfor (const p of planets) {\n\t\tp.y -= ship.instVars.dy * runtime.dt;\n\t}\n}\n\n// wrap\nship.x %= runtime.layout.width;\nship.x += runtime.layout.width;\nship.x %= runtime.layout.width;\n\nif (ship.instVars.dy < 0) {\n\truntime.globalVars.score -= ship.instVars.dy * runtime.dt;\n}\n\n// spawn new planet\nif (topY > 100) {\n\tconst newPlanet = runtime.objects['Planet'].createInstance(0, Math.random() * runtime.layout.width, 0);\n\tconst anims = ['Blue Planet', 'Red Planet', 'Purple Planet', 'Grey Planet'];\n\tnewPlanet.setAnimation(anims[Math.floor(Math.random() * anims.length)]);\n}"
 				},
 				{
 					"id": "create-object",
@@ -77,6 +117,22 @@
 						"degrees": "3",
 						"x": "Mouse.X",
 						"y": "Mouse.Y"
+					}
+				},
+				{
+					"id": "set-x",
+					"objectClass": "marker",
+					"sid": 274806584301505,
+					"parameters": {
+						"x": "Ship.temperature*240+240"
+					}
+				},
+				{
+					"id": "set-text",
+					"objectClass": "score",
+					"sid": 294335692777554,
+					"parameters": {
+						"text": "\"Score: \" & round(score)"
 					}
 				}
 			],
@@ -240,6 +296,251 @@
 				}
 			],
 			"sid": 183026252037812
+		},
+		{
+			"eventType": "block",
+			"conditions": [
+				{
+					"id": "compare-instance-variable",
+					"objectClass": "Ship",
+					"sid": 799262234395639,
+					"parameters": {
+						"instance-variable": "temperature",
+						"comparison": 5,
+						"value": "1"
+					}
+				}
+			],
+			"actions": [
+				{
+					"id": "destroy",
+					"objectClass": "Ship",
+					"sid": 315804571821053
+				},
+				{
+					"id": "play-by-name",
+					"objectClass": "Audio",
+					"sid": 635066470595789,
+					"parameters": {
+						"folder": "sounds",
+						"audio-file-name": "\"explosion\"",
+						"loop": "not-looping",
+						"volume": "-20",
+						"stereo-pan": "0",
+						"tag-optional": "\"\""
+					}
+				},
+				{
+					"id": "destroy",
+					"objectClass": "scale",
+					"sid": 670376240869569
+				},
+				{
+					"id": "destroy",
+					"objectClass": "marker",
+					"sid": 472651658789272
+				},
+				{
+					"id": "wait",
+					"objectClass": "System",
+					"sid": 720974330079428,
+					"parameters": {
+						"seconds": "1.0"
+					}
+				},
+				{
+					"id": "go-to-layout",
+					"objectClass": "System",
+					"sid": 705732259100810,
+					"parameters": {
+						"layout": "start"
+					}
+				}
+			],
+			"sid": 622664361437424,
+			"children": [
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "compare-two-values",
+							"objectClass": "System",
+							"sid": 878737669090731,
+							"parameters": {
+								"first-value": "score",
+								"comparison": 4,
+								"second-value": "highScore"
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "set-eventvar-value",
+							"objectClass": "System",
+							"sid": 856746507717978,
+							"parameters": {
+								"variable": "highScore",
+								"value": "round(score)"
+							}
+						}
+					],
+					"sid": 210611079185714
+				}
+			]
+		},
+		{
+			"eventType": "block",
+			"conditions": [
+				{
+					"id": "compare-instance-variable",
+					"objectClass": "Ship",
+					"sid": 976365971479155,
+					"parameters": {
+						"instance-variable": "temperature",
+						"comparison": 3,
+						"value": "-1"
+					}
+				}
+			],
+			"actions": [
+				{
+					"id": "destroy",
+					"objectClass": "Ship",
+					"sid": 412767840651854
+				},
+				{
+					"id": "play",
+					"objectClass": "Audio",
+					"sid": 777704685061213,
+					"parameters": {
+						"audio-file": "explosion",
+						"loop": "not-looping",
+						"volume": "-20",
+						"stereo-pan": "0",
+						"tag-optional": "\"\""
+					}
+				},
+				{
+					"id": "destroy",
+					"objectClass": "scale",
+					"sid": 327122789393218
+				},
+				{
+					"id": "destroy",
+					"objectClass": "marker",
+					"sid": 593855651018767
+				},
+				{
+					"id": "wait",
+					"objectClass": "System",
+					"sid": 815746607898213,
+					"parameters": {
+						"seconds": "1.0"
+					}
+				},
+				{
+					"id": "go-to-layout",
+					"objectClass": "System",
+					"sid": 120947974268782,
+					"parameters": {
+						"layout": "start"
+					}
+				}
+			],
+			"sid": 585162636595960
+		},
+		{
+			"eventType": "block",
+			"conditions": [
+				{
+					"id": "compare-two-values",
+					"objectClass": "System",
+					"sid": 408500238827638,
+					"parameters": {
+						"first-value": "score",
+						"comparison": 4,
+						"second-value": "highScore"
+					}
+				}
+			],
+			"actions": [
+				{
+					"id": "set-eventvar-value",
+					"objectClass": "System",
+					"sid": 609564995824821,
+					"parameters": {
+						"variable": "highScore",
+						"value": "round(score)"
+					}
+				}
+			],
+			"sid": 589670105357662
+		},
+		{
+			"eventType": "block",
+			"conditions": [
+				{
+					"id": "on-click",
+					"objectClass": "Mouse",
+					"sid": 557715363308712,
+					"parameters": {
+						"mouse-button": "left",
+						"click-type": "clicked"
+					}
+				},
+				{
+					"id": "compare-two-values",
+					"objectClass": "System",
+					"sid": 219368719298526,
+					"parameters": {
+						"first-value": "Ship.Count",
+						"comparison": 0,
+						"second-value": "0"
+					}
+				}
+			],
+			"actions": [
+				{
+					"id": "create-object",
+					"objectClass": "System",
+					"sid": 731896668023211,
+					"parameters": {
+						"object-to-create": "Ship",
+						"layer": "0",
+						"x": "LayoutWidth/2",
+						"y": "LayoutHeight",
+						"create-hierarchy": false,
+						"template-name": "\"\""
+					}
+				},
+				{
+					"id": "set-instvar-value",
+					"objectClass": "Ship",
+					"sid": 603613817355664,
+					"parameters": {
+						"instance-variable": "dx",
+						"value": "Mouse.X-Ship.X"
+					}
+				},
+				{
+					"id": "set-instvar-value",
+					"objectClass": "Ship",
+					"sid": 221067789644132,
+					"parameters": {
+						"instance-variable": "dy",
+						"value": "Mouse.Y-Ship.Y"
+					}
+				},
+				{
+					"id": "set-scale",
+					"objectClass": "Ship",
+					"sid": 360467538862409,
+					"parameters": {
+						"scale": "2"
+					}
+				}
+			],
+			"sid": 249825947429095
 		}
 	],
 	"sid": 914229451466728

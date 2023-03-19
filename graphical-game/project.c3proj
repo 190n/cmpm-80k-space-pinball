@@ -15,6 +15,13 @@
 		},
 		{
 			"type": "plugin",
+			"id": "Button",
+			"name": "Button",
+			"author": "Scirra",
+			"bundled": false
+		},
+		{
+			"type": "plugin",
 			"id": "Keyboard",
 			"name": "Keyboard",
 			"author": "Scirra",
@@ -33,6 +40,13 @@
 			"name": "Sprite",
 			"author": "Scirra",
 			"bundled": false
+		},
+		{
+			"type": "plugin",
+			"id": "Text",
+			"name": "Text",
+			"author": "Scirra",
+			"bundled": false
 		}
 	],
 	"uniqueId": "i9px0bp546s",
@@ -44,7 +58,15 @@
 			"Keyboard",
 			"Mouse",
 			"Audio",
-			"background"
+			"background",
+			"Text",
+			"scale",
+			"marker",
+			"Text2",
+			"Text3",
+			"PLAY",
+			"highscore",
+			"score"
 		],
 		"subfolders": []
 	},
@@ -246,5 +268,5 @@
 	},
 	"viewportWidth": 480,
 	"viewportHeight": 640,
-	"firstLayout": null
+	"firstLayout": "start"
 }

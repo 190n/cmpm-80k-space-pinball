@@ -31,6 +31,13 @@
 			"desc": "delta-v that was applied to enter the current orbit",
 			"show": true,
 			"sid": 922480594369612
+		},
+		{
+			"name": "temperature",
+			"type": "number",
+			"desc": "",
+			"show": true,
+			"sid": 392227476895913
 		}
 	],
 	"behaviorTypes": [],

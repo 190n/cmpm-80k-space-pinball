@@ -1,5 +1,68 @@
 {
 	"name": "Event sheet 2",
-	"events": [],
+	"events": [
+		{
+			"eventType": "variable",
+			"name": "highScore",
+			"type": "number",
+			"initialValue": "0",
+			"comment": "",
+			"isStatic": false,
+			"isConstant": false,
+			"sid": 220726724047497
+		},
+		{
+			"eventType": "block",
+			"conditions": [
+				{
+					"id": "on-clicked",
+					"objectClass": "PLAY",
+					"sid": 189149151649257
+				}
+			],
+			"actions": [
+				{
+					"id": "go-to-layout",
+					"objectClass": "System",
+					"sid": 463332166441612,
+					"parameters": {
+						"layout": "main"
+					}
+				}
+			],
+			"sid": 550415585609843
+		},
+		{
+			"eventType": "block",
+			"conditions": [
+				{
+					"id": "on-start-of-layout",
+					"objectClass": "System",
+					"sid": 273470604912358
+				},
+				{
+					"id": "compare-eventvar",
+					"objectClass": "System",
+					"sid": 741035009442498,
+					"parameters": {
+						"variable": "highScore",
+						"comparison": 4,
+						"value": "0"
+					}
+				}
+			],
+			"actions": [
+				{
+					"id": "set-text",
+					"objectClass": "highscore",
+					"sid": 446056663930558,
+					"parameters": {
+						"text": "\"High score: \" & highScore"
+					}
+				}
+			],
+			"sid": 645988593612359
+		}
+	],
 	"sid": 610654097747018
 }
