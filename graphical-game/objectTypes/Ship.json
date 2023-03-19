@@ -40,24 +40,24 @@
 			{
 				"frames": [
 					{
-						"width": 14,
-						"height": 30,
+						"width": 30,
+						"height": 14,
 						"originX": 0.5,
 						"originY": 0.5,
 						"originalSource": "",
 						"exportFormat": "lossless",
 						"exportQuality": 0.8,
-						"imageSpriteId": 4686272,
+						"imageSpriteId": 1060824,
 						"collisionPoly": {
 							"points": [
+								0.9666666666666667,
 								0.07142857142857142,
-								0.03333333333333333,
+								0.9666666666666667,
 								1,
-								0.03333333333333333,
+								0,
 								1,
-								1,
-								0.07142857142857142,
-								1
+								0,
+								0.07142857142857142
 							]
 						},
 						"useCollisionPoly": true,
@@ -75,38 +75,74 @@
 			{
 				"frames": [
 					{
-						"width": 14,
-						"height": 30,
+						"width": 30,
+						"height": 14,
 						"originX": 0.5,
 						"originY": 0.5,
 						"originalSource": "",
 						"exportFormat": "lossless",
 						"exportQuality": 0.8,
-						"imageSpriteId": 7897301,
+						"imageSpriteId": 2078337,
+						"collisionPoly": {
+							"points": [
+								1,
+								0,
+								1,
+								1,
+								0,
+								1,
+								0,
+								0
+							]
+						},
 						"useCollisionPoly": true,
 						"duration": 1
 					},
 					{
-						"width": 14,
-						"height": 30,
+						"width": 30,
+						"height": 14,
 						"originX": 0.5,
 						"originY": 0.5,
 						"originalSource": "",
 						"exportFormat": "lossless",
 						"exportQuality": 0.8,
-						"imageSpriteId": 6269759,
+						"imageSpriteId": 4210698,
+						"collisionPoly": {
+							"points": [
+								1,
+								0,
+								1,
+								1,
+								0,
+								1,
+								0,
+								0
+							]
+						},
 						"useCollisionPoly": true,
 						"duration": 1
 					},
 					{
-						"width": 14,
-						"height": 30,
+						"width": 30,
+						"height": 14,
 						"originX": 0.5,
 						"originY": 0.5,
 						"originalSource": "",
 						"exportFormat": "lossless",
 						"exportQuality": 0.8,
-						"imageSpriteId": 5377986,
+						"imageSpriteId": 5082897,
+						"collisionPoly": {
+							"points": [
+								1,
+								0,
+								1,
+								1,
+								0,
+								1,
+								0,
+								0
+							]
+						},
 						"useCollisionPoly": true,
 						"duration": 1
 					}

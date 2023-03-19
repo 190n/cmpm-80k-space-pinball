@@ -18,16 +18,16 @@
 					"uid": 6,
 					"instanceVariables": {
 						"dx": -20,
-						"dy": -300,
+						"dy": -200,
 						"orbiting": false,
 						"dv": 0
 					},
 					"behaviors": {},
 					"world": {
 						"x": 292,
-						"y": 434,
-						"width": 32,
-						"height": 64,
+						"y": 320,
+						"width": 68.57142857142857,
+						"height": 29.866666666666667,
 						"originX": 0.5,
 						"originY": 0.5,
 						"color": [
@@ -55,6 +55,93 @@
 					"world": {
 						"x": 342.9159335485985,
 						"y": 247.0275365300664,
+						"width": 32,
+						"height": 32,
+						"originX": 0.5,
+						"originY": 0.5,
+						"color": [
+							1,
+							1,
+							1,
+							1
+						],
+						"angle": 0,
+						"zElevation": 0
+					}
+				},
+				{
+					"type": "Planet",
+					"properties": {
+						"initially-visible": true,
+						"initial-animation": "Blue Planet",
+						"initial-frame": 0,
+						"enable-collisions": true,
+						"live-preview": false
+					},
+					"uid": 3,
+					"instanceVariables": {},
+					"behaviors": {},
+					"world": {
+						"x": 85,
+						"y": 172,
+						"width": 32,
+						"height": 32,
+						"originX": 0.5,
+						"originY": 0.5,
+						"color": [
+							1,
+							1,
+							1,
+							1
+						],
+						"angle": 0,
+						"zElevation": 0
+					}
+				},
+				{
+					"type": "Planet",
+					"properties": {
+						"initially-visible": true,
+						"initial-animation": "Blue Planet",
+						"initial-frame": 0,
+						"enable-collisions": true,
+						"live-preview": false
+					},
+					"uid": 4,
+					"instanceVariables": {},
+					"behaviors": {},
+					"world": {
+						"x": 302,
+						"y": 94,
+						"width": 32,
+						"height": 32,
+						"originX": 0.5,
+						"originY": 0.5,
+						"color": [
+							1,
+							1,
+							1,
+							1
+						],
+						"angle": 0,
+						"zElevation": 0
+					}
+				},
+				{
+					"type": "Planet",
+					"properties": {
+						"initially-visible": true,
+						"initial-animation": "Blue Planet",
+						"initial-frame": 0,
+						"enable-collisions": true,
+						"live-preview": false
+					},
+					"uid": 8,
+					"instanceVariables": {},
+					"behaviors": {},
+					"world": {
+						"x": 121,
+						"y": 458,
 						"width": 32,
 						"height": 32,
 						"originX": 0.5,
@@ -102,8 +189,8 @@
 	"sid": 152166407611082,
 	"nonworld-instances": [],
 	"effectTypes": [],
-	"width": 960,
-	"height": 1280,
+	"width": 480,
+	"height": 640,
 	"unboundedScrolling": false,
 	"vpX": 0.5,
 	"vpY": 0.5,
