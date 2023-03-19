@@ -43,7 +43,8 @@
 			"Dot",
 			"Keyboard",
 			"Mouse",
-			"Audio"
+			"Audio",
+			"background"
 		],
 		"subfolders": []
 	},
@@ -55,13 +56,15 @@
 	},
 	"layouts": {
 		"items": [
-			"Layout 1"
+			"main",
+			"start"
 		],
 		"subfolders": []
 	},
 	"eventSheets": {
 		"items": [
-			"Event sheet 1"
+			"Event sheet 1",
+			"Event sheet 2"
 		],
 		"subfolders": []
 	},
